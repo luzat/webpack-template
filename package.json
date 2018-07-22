@@ -2,7 +2,7 @@
   "name": "webpack-template",
   "version": "0.0.1",
   "description": "Webpack project template",
-  "repository": "https://github.com/luzat/webpack-template.git",
+  "repository": "luzat/webpack-template",
   "private": true,
   "author": {
     "name": "Thomas Luzat",
