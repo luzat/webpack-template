@@ -58,6 +58,7 @@ module.exports = (env, argv = {}) => {
               loader: 'css-loader',
               options: {
                 import: false,
+                importLoaders: 3,
                 sourceMap: true,
               },
             },
@@ -68,13 +69,13 @@ module.exports = (env, argv = {}) => {
               },
             },
             {
-              loader: 'postcss-loader',
+              loader: 'sass-loader',
               options: {
                 sourceMap: true,
               },
             },
             {
-              loader: 'sass-loader',
+              loader: 'postcss-loader',
               options: {
                 sourceMap: true,
               },

@@ -1,6 +1,15 @@
 const autoprefixer = require('autoprefixer')
-const cssnext = require('cssnext')
+const postcssPresetEnv = require('postcss-preset-env')
 
 module.exports = {
-  plugins: [cssnext, autoprefixer],
+  plugins: [
+    autoprefixer,
+    postcssPresetEnv({
+      stage: 2,
+      features: {
+        'color-functional-notation': true,
+      },
+    }),
+  ],
+  syntax: 'postcss-scss',
 }

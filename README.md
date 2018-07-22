@@ -7,8 +7,8 @@ Initial code base for an internally used Webpack project template.
 - CSS
   - PostCSS
     - autoprefixer
-    - cssnext
     - cssnano
+    - postcss-preset-env
   - SCSS
   - stylelint
 - HTML
