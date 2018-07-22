@@ -29,7 +29,7 @@ module.exports = (env, argv = {}) => {
     mode,
     entry: mapValues(entries, name => `./src/${name}.mjs`),
     output: {
-      filename: '[name].js',
+      filename: production ? '[name].[chunkhash].js' : '[name].[hash].js',
       path: path.resolve(__dirname, 'dist'),
     },
     devtool: sourceMap,
@@ -103,24 +103,35 @@ module.exports = (env, argv = {}) => {
           cssProcessorOptions: { map: { inline: false, annotation: true } },
         }),
       ],
+      runtimeChunk: 'single',
       splitChunks: {
-        cacheGroups: mapValues(entries, name => ({
-          name,
-          test: (m, c, e = name) =>
-            m.constructor.name === 'CssModule' && recursiveIssuer(m) === e,
-          chunks: 'all',
-          enforce: true,
-        })),
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            chunks: 'all',
+          },
+          ...mapValues(entries, name => ({
+            name,
+            test: (m, c, e = name) =>
+              m.constructor.name === 'CssModule' && recursiveIssuer(m) === e,
+            chunks: 'all',
+            enforce: true,
+          })),
+        },
       },
     },
     plugins: [
       new webpack.optimize.ModuleConcatenationPlugin(),
+      production
+        ? new webpack.HashedModuleIdsPlugin()
+        : new webpack.NamedModulesPlugin(),
       ...Object.entries(entries)
         .filter(([, entry]) => entry.html)
         .map(
           ([name, { title, html }]) =>
             new HtmlWebpackPlugin({
-              chunks: [name],
+              chunks: ['runtime', 'vendors', name],
               filename: `${name}.html`,
               minify: {
                 caseSenstive: true,
@@ -143,7 +154,7 @@ module.exports = (env, argv = {}) => {
             }),
         ),
       new ScriptExtHtmlWebpackPlugin({
-        defaultAttribute: 'async',
+        defaultAttribute: 'sync',
       }),
       new MiniCssExtractPlugin({
         filename: production ? '[name].[hash].css' : '[name].css',
