@@ -39,6 +39,9 @@ module.exports = (env, argv = {}) => {
           test: jsTest,
           exclude: /(node_modules|bower_components)/,
           use: 'babel-loader',
+          resolve: {
+            mainFields: ['browser', 'module', 'main'],
+          },
         },
         {
           test: /\.(sa|sc|c)ss$/,
