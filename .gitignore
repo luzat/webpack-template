@@ -1,0 +1,38 @@
+# Linux
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# macOS
+.DS_Store
+
+# Windows
+Desktop.ini
+ehthumbs.db
+ehthumbs_vista.db
+Thumbs.db
+
+# Vim
+*~
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-v][a-z]
+[._]sw[a-p]
+Session.vim
+.netrwhist
+tags
+
+# IDEs and editors
+.idea
+.vscode
+*.sublime-project
+*.sublime-workspace
+
+# JavaScript environment
+/node_modules
+/dist
+.eslintcache
+.stylelintcache
+package-lock.json
+npm-debug.log*
