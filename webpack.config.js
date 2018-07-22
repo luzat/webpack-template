@@ -121,6 +121,7 @@ module.exports = (env, argv = {}) => {
           ([name, { title, html }]) =>
             new HtmlWebpackPlugin({
               chunks: [name],
+              filename: `${name}.html`,
               minify: {
                 caseSenstive: true,
                 collapseBooleanAttributes: true,
